@@ -3,7 +3,7 @@ import Stripe from "stripe";
 
 import * as paymentService from "../services/paymentService";
 import asyncHandler from "../utils/asyncHandler";
-import stripe from "../config/stripe";
+import { stripe } from "../config/stripe";
 
 export const createPaymentIntent = asyncHandler(
   async (req: Request, res: Response) => {
@@ -25,7 +25,11 @@ export const handleWebhook = asyncHandler(
         process.env.STRIPE_WEBHOOK_SECRET as string
       );
     } catch (err) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      if (err instanceof Error) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+      } else {
+        res.status(400).send(`Webhook Error: ${err}`);
+      }
       return;
     }
 

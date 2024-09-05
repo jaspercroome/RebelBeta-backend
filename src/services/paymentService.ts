@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 
-import stripe from "../config/stripe";
+import { stripe } from "../config/stripe";
 import supabase from "../config/supabase";
 import { CreatePaymentIntentDto, PaymentIntent } from "../types/payment";
 import { AppError } from "../middleware/errorHandler";
@@ -37,5 +37,4 @@ export const handlePaymentWebhook = async (event: Stripe.Event) => {
       throw new AppError("Failed to update payment record", 500);
     }
   }
-  // Handle other event types as needed
 };
