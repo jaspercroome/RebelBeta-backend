@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use("/api/payments", paymentRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
-app.use("/poke", poke);
+app.use("/", poke);
 
 app.use(errorHandler);
 
